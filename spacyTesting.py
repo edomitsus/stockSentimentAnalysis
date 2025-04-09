@@ -126,6 +126,8 @@ def monthlySentiment(keyword, startDate, endDate):
 # dailySentiment("elon musk", "2025-03-08", "2025-04-08")
 monthlySentiment("economy", "2024-04-08", "2025-04-08")
 
+# COMMIT COMMIT
+
 # searchDay("tesla", "2020-01-01")
 
 
