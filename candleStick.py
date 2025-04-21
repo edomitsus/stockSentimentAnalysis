@@ -4,11 +4,11 @@ import pandas as pd
 from datetime import datetime
 
 # Define the stock ticker symbol (e.g., "AAPL" for Apple)
-stock_symbol = "AAPL"
+stock_symbol = "TSLA"
 
 # Set the date range for the data you want (e.g., from 2020-01-01 to 2024-01-01)
-start_date = "2025-01-01"
-end_date = "2025-04-07"
+start_date = "2024-04-08"
+end_date = "2025-04-08"
 
 # Download stock data using yfinance
 stock_data = yf.download(stock_symbol, start=start_date, end=end_date)

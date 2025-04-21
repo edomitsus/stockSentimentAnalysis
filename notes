@@ -1,0 +1,8 @@
+04/07 night: 
+    started using spacy
+    tried out textblob and vader: VADER IS BETTER
+    figured out how to display any stock data as candlestick
+
+04/08 todo:
+    -figure out google search
+    -graph sentiment next to stock price

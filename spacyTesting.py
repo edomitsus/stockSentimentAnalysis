@@ -124,7 +124,7 @@ def monthlySentiment(keyword, startDate, endDate):
     pd.to_csv(f"{keyword}_monthly_sentiment.csv", index=False)
 
 # dailySentiment("elon musk", "2025-03-08", "2025-04-08")
-monthlySentiment("economy", "2024-04-08", "2025-04-08")
+monthlySentiment("Google", "2024-04-08", "2025-04-08")
 
 # COMMIT COMMIT
 
