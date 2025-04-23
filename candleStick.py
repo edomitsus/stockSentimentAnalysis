@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime
 
 # Define the stock ticker symbol (e.g., "AAPL" for Apple)
-stock_symbol = "TSLA"
+stock_symbol = "^GSPC"
 
 # Set the date range for the data you want (e.g., from 2020-01-01 to 2024-01-01)
 start_date = "2024-04-08"
