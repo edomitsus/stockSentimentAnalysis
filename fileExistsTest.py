@@ -1,10 +1,13 @@
-from pathlib import Path
+# from pathlib import Path
+import yfinance as yf
 
-stockCode = "AAPL"
-querry = "apple"
+# stockCode = "AAPL"
+# querry = "apple"
 
-stockFile = Path(f"{stockCode}_stock_data.csv")
-querryFile = Path(f"{querry}_monthly_sentiment.csv")
+# stockFile = Path(f"{stockCode}_stock_data.csv")
+# querryFile = Path(f"{querry}_monthly_sentiment.csv")
 
-print(stockFile.exists())
-print(querryFile.exists())
+# print(stockFile.exists())
+# print(querryFile.exists())
+
+print(yf.__version__)

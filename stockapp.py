@@ -9,6 +9,7 @@ import spacy
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from GoogleNews import GoogleNews
 from dateutil.relativedelta import relativedelta
+import time
 
 # load google news up here
 googlenews = GoogleNews()
@@ -78,6 +79,9 @@ def monthlySentiment(keyword, startDate, endDate):
     df = pd.DataFrame(sentimentList, columns=["Date", "Sentiment"])
     df.to_csv(f"{keyword}_monthly_sentiment.csv", index=False)
 
+st.header("Buying stocks over one year using sentiment analysis of articles")
+# ask for budget, set placeholder to 0 or else error occurs
+budget = int(st.text_input("Budget ($)", value=0))
 stockCode = st.text_input("Stock code: ")
 querry = st.text_input("Article search word: ")
 
@@ -91,15 +95,24 @@ if st.button("Submit", key="submit1"):
 
     if not stockFile.exists():
 
-        # Download stock data using yfinance
-        stock_data = yf.download(stockCode, start=start_date, end=end_date)
+        # Download stock data using yfinance: 05/10 CHANGED ARGUMENT auto_adgjust default to true
+        stock_data = yf.download(stockCode, start=start_date, end=end_date, auto_adjust=False)
 
         # Save the data to a CSV file
         stock_data.to_csv(f"{stockCode}_stock_data.csv")
 
+    # check if data has already been recorded
     if not querryFile.exists():
 
         monthlySentiment(querry, start_date, end_date)
+    else:
+        # make loading bar for here too??
+        progress_text = "Searching Articles..."
+        my_bar = st.progress(0, text=progress_text)
+
+        for percent_complete in range(100):
+            time.sleep(0.03)
+            my_bar.progress(percent_complete + 1, text=progress_text)
 
     dfStock = pd.read_csv(f"{stockCode}_stock_data.csv")
 
@@ -116,7 +129,7 @@ if st.button("Submit", key="submit1"):
 
     # buying the stocks
     # budget = st.number_input("Enter your budget: ")
-    budget = 100000
+    # budget = 100000
     balance = budget
     portfolio = budget
     shares = 0
@@ -145,7 +158,15 @@ if st.button("Submit", key="submit1"):
             #     st.write("Shares sold: ", buyShares, "Portfolio Value: ", portfolio, "Balance: ", balance)
         lastSentiment = dfSentiment["Sentiment"][i]
 
-    st.write("Portfolio Value: ", portfolio, "Gains: ", (portfolio - budget) / budget * 100, "%")
+    # CHANGE COLOR OF TEXT DEPENDING ON GAIN/LOSS
+
+    # remember to round portfolio value to 2 decimals
+    if portfolio >= budget:
+        st.header(f"Portfolio Value: :green[${round(portfolio, 2)}]")
+        st.header(f"Gains: :green[+{round((portfolio - budget) / budget * 100, 2)} %]")
+    else:
+        st.header(f"Portfolio Value: :red[${round(portfolio, 2)}]")
+        st.header(f"Gains: :red[{round((portfolio - budget) / budget * 100, 2)} %]") #dont need the - sign for negative, its already there
 
 
 
